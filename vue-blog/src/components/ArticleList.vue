@@ -1,5 +1,25 @@
 <script setup>
-  console.log('ArticleList')
+import { onMounted,inject, ref} from 'vue';
+  
+  const formData = ref('')
+
+  const axios = inject("$axios")
+
+  onMounted(()=>{
+    findPage();
+  })
+
+  const findPage = ()=>{
+    axios.post('http://localhost:8080/article/getArticleList').then((res)=>{
+      console.log(res.data)
+      console.log(res.total)
+      this.formData = res.data;
+    }).catch((e)=>{
+      console.log(e);
+    })
+  }
+
+
 </script>
 
 <template>
@@ -7,15 +27,19 @@
     <el-header class="header">
       <span>博客列表</span>
     </el-header>
+    <el-table :data="formData" style="width:100%;">
+
+      <el-table-column prop="title" label="标题" width="180" />
+      <el-table-column prop="content" label="内容" width="180" />
+      <el-table-column prop="likeCount" label="点赞数" width="180" />
+      <el-table-column prop="viewCount" label="观看数" width="180" />
+
+    </el-table>
   </div>
   
 </template>
 
 <style scoped>
-  
-  
+
 </style>
 
-<style>
-  
-</style>
