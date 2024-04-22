@@ -1,26 +1,26 @@
 package com.mixcus.controller;
 
-
-import com.mixcus.service.ArticleService;
-import com.mixcus.utils.PageResult;
+import com.mixcus.pojo.UserInfo;
+import com.mixcus.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/article")
+@RequestMapping("/userInfo")
 @CrossOrigin(origins = "*")
-public class ArticleController {
+public class UserInfoController {
 
     @Autowired
-    private ArticleService articleService;
+    private UserInfoService userService;
 
-    @RequestMapping("/getArticleList")
-    public PageResult getArticleList(){
-        return articleService.getArticleList();
+    @RequestMapping("/getUserInfoList")
+    public List<UserInfo> getUserInfoList(){
+        return userService.getUserInfoList();
     }
-
 
 }
 

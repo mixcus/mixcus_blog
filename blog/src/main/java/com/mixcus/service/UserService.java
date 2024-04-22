@@ -1,10 +1,10 @@
 package com.mixcus.service;
 
-import com.mixcus.pojo.User;
-
-
-import java.util.List;
-
 public interface UserService {
-    List<User> getUserList();
+
+    String getPassword(String userName);
+
+    int hasUserName(String userName);
+
+    void addUser(String userName,String password);
 }

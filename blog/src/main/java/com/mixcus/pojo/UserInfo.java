@@ -9,7 +9,7 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserInfo {
     private Integer userId;
 
     private String userName;

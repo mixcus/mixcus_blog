@@ -18,5 +18,27 @@ public class Result implements Serializable {
 
     private Object data;//返回数据
 
+    public Result(boolean flag) {
+        this.flag = flag;
+    }
+
+    public Result(String message) {
+        this.message = message;
+    }
+
+    public Result(boolean flag, String message) {
+        this.flag = flag;
+        this.message = message;
+    }
+
+    public Result(Object data) {
+        this.data = data;
+    }
+
+    public Result(boolean flag, Object data) {
+        this.flag = flag;
+        this.data = data;
+    }
+
 }
 

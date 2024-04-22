@@ -1,7 +1,7 @@
 package com.mixcus;
 
-import com.mixcus.pojo.User;
-import com.mixcus.service.UserService;
+import com.mixcus.pojo.UserInfo;
+import com.mixcus.service.UserInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,12 +16,12 @@ class BlogApplicationTests {
     }
 
     @Autowired
-    UserService userService;
+    UserInfoService userService;
 
     @Test
     void test(){
-        List<User> userList = userService.getUserList();
-        for (User user : userList) {
+        List<UserInfo> userList = userService.getUserInfoList();
+        for (UserInfo user : userList) {
             System.out.println(user);
         }
 

@@ -14,7 +14,7 @@ public class PageResult implements Serializable {
     //总记录数
     private Integer totals;
     //数据集合
-    private List list;
+    private List data;
 
 }
 
