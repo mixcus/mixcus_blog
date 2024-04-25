@@ -11,9 +11,9 @@ import { onMounted,inject, ref} from 'vue';
 
   const findPage = ()=>{
     axios.post('http://localhost:8080/article/getArticleList').then((res)=>{
-      console.log(res.data)
-      console.log(res.total)
-      this.formData = res.data;
+      console.log(res.data.data)
+      console.log(res.data.total)
+      formData.value = res.data.data;
     }).catch((e)=>{
       console.log(e);
     })

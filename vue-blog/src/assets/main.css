@@ -7,3 +7,9 @@
     top:70px;
     left: 340px;
 }
+html,
+body,
+#app {
+    height: 100%;
+}
+   
