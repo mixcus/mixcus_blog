@@ -4,8 +4,10 @@
 }
 .content{
     position: absolute;
-    top:70px;
-    left: 340px;
+    top:10px;
+    left: 10px;
+    width: 1325px;
+    background-color: white;
 }
 html,
 body,

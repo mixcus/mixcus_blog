@@ -2,7 +2,6 @@ import ArticleAdd from '@/components/ArticleAdd.vue'
 import ArticleList from '@/components/ArticleList.vue'
 import LoginView from '@/views/LoginView.vue'
 import MainView from '@/views/MainView.vue'
-import RegisterView from '@/views/RegisterView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 
@@ -14,11 +13,6 @@ const router = createRouter({
       path: '/',
       name: 'login',
       component: LoginView
-    },
-    {//注册界面
-      path: '/register',
-      name: 'register',
-      component: RegisterView
     },
     {//主页面
       path: '/main',

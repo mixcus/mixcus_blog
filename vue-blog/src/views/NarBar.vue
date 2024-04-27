@@ -12,10 +12,14 @@
 
 <template>
   <div class="nav">
-    <div class="title">欢迎进入博客管理系统</div>
-    <div class="person">个人信息</div>
-    <div class="button">
-      <el-button type="primary" plain @click="logout()">退出</el-button>
+    <div class="title">
+      <el-icon size="30px"><Reading /></el-icon>
+      <div style="padding: 5px;">
+        欢迎进入博客管理系统
+      </div>
+    </div>
+    <div class="button" style="margin: auto 20px;">
+      <el-button type="primary"  plain @click="logout()">退出</el-button>
     </div>
   </div>
 </template>
@@ -31,8 +35,8 @@
     box-shadow: --el-box-shadow-dark;
   }
   .title{
-    margin-left: 20px;
-    margin-top: 20px;
+    display: flex;
+    margin: auto 20px;
   }
   
 </style>
