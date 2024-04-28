@@ -22,10 +22,15 @@ public class Article {
 
     private Integer userId;
 
+    private String tag;
+
+    private String category;
+
     private Integer likeCount;
 
     private Integer viewCount;
 
     private Instant createTime;
 
+    private Instant modifyTime;
 }

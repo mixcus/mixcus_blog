@@ -19,8 +19,14 @@ public class UserController {
     public Result login(@RequestBody User user){
 
         int flag = userService.hasUserName(user.getUsername());
-        System.out.println(user.getUsername());
-        System.out.println(flag);
+
+        if(user.getUsername()==null){
+            return new Result(false,"账号不能为空");
+        }
+        if(user.getPassword()==null){
+            return new Result(false,"密码不能为空");
+        }
+
         if(flag==0){
             //表示账号不存在
             return new Result(false,"账号不存在");

@@ -1,5 +1,6 @@
 package com.mixcus;
 
+import com.mixcus.exception.test.ExceptionService;
 import com.mixcus.pojo.UserInfo;
 import com.mixcus.service.UserInfoService;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,8 @@ class BlogApplicationTests {
     @Autowired
     UserInfoService userService;
 
+    @Autowired
+    ExceptionService exceptionService;
     @Test
     void test(){
         List<UserInfo> userList = userService.getUserInfoList();
@@ -26,5 +29,12 @@ class BlogApplicationTests {
         }
 
     }
+
+    @Test
+    void test2(){
+        //exceptionService.badRequest();
+        exceptionService.serverError();
+    }
+
 
 }

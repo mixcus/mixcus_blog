@@ -10,5 +10,50 @@
         select * from blog.article;
     </select>
 
+    <update id="editArticle" parameterType="article">
+        update article
+        <set>
+            <if test="article.title!=null">
+                title = #{article.title},
+            </if>
+
+            <if test="article.content!=null">
+                content = #{article.content},
+            </if>
+
+            <if test="article.tag!=null">
+                tag = #{article.tag},
+            </if>
+
+            <if test="article.category">
+                category = #{article.category},
+            </if>
+
+            <if test="article.likeCount!=null">
+                likeCount = #{article.likeCount},
+            </if>
+
+            <if test="article.viewCount!=null">
+                viewCount = #{article.viewCount},
+            </if>
+
+            <if test="article.modifyTime!=null">
+                modify_time = CURRENT_TIMESTAMP,
+            </if>
+        </set>
+        where article_id = #{article.articleId}
+    </update>
+
+    <delete id="deleteArticleById" parameterType="int">
+        delete from article
+        where article_id = #{id}
+    </delete>
+
+    <insert id="addArticle" parameterType="article">
+        insert into article (title, content, user_id,tag,category, likeCount, viewCount, create_time)
+        values
+        (#{article.title},#{article.content},#{article.userId},#{article.tag},#{article.category},0,0,CURRENT_TIMESTAMP)
+    </insert>
+
 
 </mapper>
