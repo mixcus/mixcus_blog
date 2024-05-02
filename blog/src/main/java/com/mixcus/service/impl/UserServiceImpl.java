@@ -2,8 +2,12 @@ package com.mixcus.service.impl;
 
 import com.mixcus.dao.UserDao;
 import com.mixcus.service.UserService;
+import com.mixcus.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,5 +31,21 @@ public class UserServiceImpl implements UserService {
     public void addUser(String userName, String password) {
         userDao.addUser(userName,password);
     }
+
+    @Override
+    public int getUserId(String userName) {
+        return userDao.getUserId(userName);
+    }
+
+    @Override
+    public String getToken(String userName,Integer id) {
+
+        Map<String,Object> claims = new HashMap<>();
+
+
+        return JWTUtil.getToken(claims);
+    }
+
+
 }
 

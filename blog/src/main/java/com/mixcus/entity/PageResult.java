@@ -1,4 +1,4 @@
-package com.mixcus.utils;
+package com.mixcus.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

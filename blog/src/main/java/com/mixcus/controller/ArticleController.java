@@ -3,9 +3,9 @@ package com.mixcus.controller;
 
 import com.mixcus.pojo.Article;
 import com.mixcus.service.ArticleService;
-import com.mixcus.utils.PageResult;
-import com.mixcus.utils.Pagination;
-import com.mixcus.utils.Result;
+import com.mixcus.entity.PageResult;
+import com.mixcus.entity.Pagination;
+import com.mixcus.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

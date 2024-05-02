@@ -3,14 +3,13 @@ package com.mixcus.service.impl;
 import com.mixcus.dao.ArticleDao;
 import com.mixcus.pojo.Article;
 import com.mixcus.service.ArticleService;
-import com.mixcus.utils.PageResult;
-import com.mixcus.utils.Pagination;
-import com.mixcus.utils.Result;
+import com.mixcus.entity.PageResult;
+import com.mixcus.entity.Pagination;
+import com.mixcus.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import java.util.List;
+
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -67,5 +66,6 @@ public class ArticleServiceImpl implements ArticleService {
         System.out.println(res);
         return new PageResult(res.size(),res);
     }
+
 }
 

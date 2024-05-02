@@ -14,6 +14,11 @@
         where username = #{userName}
     </select>
 
+    <select id="getUserId" parameterType="string" resultType="int">
+        select id from user
+        where username = #{userName}
+    </select>
+
     <insert id="addUser" >
         insert into user (username, password) VALUES
         (#{userName},#{password})

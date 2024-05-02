@@ -1,10 +1,9 @@
 package com.mixcus.dao;
 
 import com.mixcus.pojo.Article;
-import com.mixcus.utils.Pagination;
+import com.mixcus.entity.Pagination;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

@@ -13,7 +13,7 @@
     </select>
 
     <!--分页查询-->
-    <select id="queryArticle" parameterType="com.mixcus.utils.Pagination" resultType="article">
+    <select id="queryArticle" parameterType="com.mixcus.entity.Pagination" resultType="article">
         select * from article
         <where>
             <if test="queryString!=null">
