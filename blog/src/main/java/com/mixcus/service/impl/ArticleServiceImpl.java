@@ -1,14 +1,14 @@
 package com.mixcus.service.impl;
 
 import com.mixcus.dao.ArticleDao;
-import com.mixcus.exception.CustomException;
-import com.mixcus.exception.ErrorCode;
 import com.mixcus.pojo.Article;
 import com.mixcus.service.ArticleService;
 import com.mixcus.utils.PageResult;
+import com.mixcus.utils.Pagination;
 import com.mixcus.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -58,6 +58,14 @@ public class ArticleServiceImpl implements ArticleService {
 
             return new Result(false,"删除失败",null);
         }
+    }
+
+    @Override
+    public PageResult queryArticle(Pagination pagination) {
+
+        List<Article> res = articleDao.queryArticle(pagination);
+        System.out.println(res);
+        return new PageResult(res.size(),res);
     }
 }
 

@@ -12,4 +12,6 @@ public interface UserDao {
 
     void addUser(@Param("userName") String userName,@Param("password") String password);
 
+
+
 }

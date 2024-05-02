@@ -3,11 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+
 <mapper namespace="com.mixcus.dao.ArticleDao">
 
     <!--查询所有文章-->
     <select id="getArticleList" resultType="article">
-        select * from blog.article;
+        select * from blog.article
+    </select>
+
+    <!--分页查询-->
+    <select id="queryArticle" parameterType="com.mixcus.utils.Pagination" resultType="article">
+        select * from article
+        <where>
+            <if test="queryString!=null">
+                #标签查询
+                tag like concat('%',#{pagination.queryString},'%')
+            </if>
+        </where>
+        limit #{pagination.currentPage},#{pagination.totals}
+
     </select>
 
     <update id="editArticle" parameterType="article">

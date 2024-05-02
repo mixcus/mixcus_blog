@@ -2,6 +2,7 @@ package com.mixcus.service;
 
 import com.mixcus.pojo.Article;
 import com.mixcus.utils.PageResult;
+import com.mixcus.utils.Pagination;
 import com.mixcus.utils.Result;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,4 +14,6 @@ public interface ArticleService {
     Result editArticle(Article article);
 
     Result deleteArticleById(int id);
+
+    PageResult queryArticle(Pagination pagination);
 }

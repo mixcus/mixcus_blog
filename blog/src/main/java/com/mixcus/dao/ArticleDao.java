@@ -1,6 +1,7 @@
 package com.mixcus.dao;
 
 import com.mixcus.pojo.Article;
+import com.mixcus.utils.Pagination;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,5 +17,7 @@ public interface ArticleDao {
     void deleteArticleById(@Param("id") int id);
 
     void addArticle(@Param("article") Article article);
+
+    List<Article> queryArticle(@Param("pagination") Pagination pagination);
 }
 
