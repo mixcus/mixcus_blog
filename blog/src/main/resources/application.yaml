@@ -1,7 +1,6 @@
 spring:
   application:
     name: blog
-
   datasource:
     username: root
     password: 123456

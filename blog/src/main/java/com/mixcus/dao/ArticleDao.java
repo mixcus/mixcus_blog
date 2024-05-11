@@ -1,13 +1,13 @@
 package com.mixcus.dao;
 
 import com.mixcus.pojo.Article;
-import com.mixcus.entity.Pagination;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
-@Mapper
+@Repository
 public interface ArticleDao {
     List<Article> getArticleList();
 
@@ -17,6 +17,6 @@ public interface ArticleDao {
 
     void addArticle(@Param("article") Article article);
 
-    List<Article> queryArticle(@Param("pagination") Pagination pagination);
+    List<Article> queryArticle(@Param("map") Map<String,Object> map);
 }
 

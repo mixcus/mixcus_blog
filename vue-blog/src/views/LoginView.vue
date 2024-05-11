@@ -5,7 +5,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 
-const message = ref();
+
 const dataForm1 = ref();
 const isRegister = ref(false);
 const dataForm = ref({
@@ -34,9 +34,19 @@ const rules = {
     ],
     password: [
         { required: true, message: '请输入密码', trigger: 'blur' },
-        { min: 5, max: 16, message: '长度为4~16位非空字符', trigger: 'blur' }
+        {
+            pattern: /^\S{4,15}$/,
+            message: '长度为4~16位非空字符',
+            trigger: 'blur'
+        }
     ],
     rePassword: [
+        { required: true, message: '请再次输入密码', trigger: 'blur' },
+        {
+            pattern: /^\S{4,15}$/,
+            message: '密码必须是6-15的非空字符',
+            trigger: 'blur'
+        },
         { validator: checkRePassword, trigger: 'blur' }
     ]
 }
@@ -46,6 +56,7 @@ const clearDataForm = () => {
         password: '',
     }
 }
+//清空注册表单数据
 const clearRegisterData = () => {
     dataForm.value = {
         username: '',
@@ -54,32 +65,42 @@ const clearRegisterData = () => {
     }
 }
 
-import { inject } from 'vue';
+//导入用户仓库
+import { useUserStore } from '@/store/modules/user/user';
+const userStore = useUserStore()
 
-const axios = inject("$axios");
+//导入axios使用
+import { inject } from 'vue';
+const axios = inject("$axios")
+
+//导入基地址
+import { baseURL } from '@/utils/request';
+
 // 登入
 const login = () => {
+
     const param = {
         username: dataForm.value.username,
         password: dataForm.value.password
     }
-    axios.post('http://localhost:8080/login', param).then((res) => {
+    axios.post(baseURL + '/login', param).then((res) => {
         let flag = res.data.flag;
-        message.value = res.data.message;
-
+        let message = res.data.message;
         if (flag) {
             //登入成功
-            ElMessage.success(message.value);
-            setTimeout(() => {
-                router.push(
-                    {
-                        path: '/main',
-                    }
-                )
-            }, 500);
-        } else {
-            ElMessage.error(message.value);
+            ElMessage.success(message)
+            setTimeout(2000)
+            //设置token
+            userStore.setToken()
+            window.localStorage.setItem('token',res.data.data)
+            console.log(res.data.data)
+            //路由跳转
+            router.push({
+                path:'/main'
+            })
 
+        } else {
+            ElMessage.error(message);
             setTimeout(() => {
                 router.push(
                     {
@@ -88,38 +109,30 @@ const login = () => {
                 )
             }, 500);
         }
-
     })
-
-
 }
 
 // 注册
 const register = () => {
-
+    //等待校验
     const param = {
         username: dataForm.value.username,
         password: dataForm.value.password
     }
-    axios.post('http://localhost:8080/register', param).then((res) => {
+    axios.post(baseURL + '/register', param).then((res) => {
+        //注册成功
         if (res.data.flag) {
-            ElMessage.success(res.data.message);
-            router.push(
-                {
-                    path: '/'
-                }
-            )
-        } else {
+            //弹出信息
+            ElMessage.success(res.data.message)
+            setTimeout(2000)
+            //跳转登入页面
+            isRegister.value = false;
+        }else{
             ElMessage.error(res.data.message);
+            setTimeout(2000)
             clearRegisterData();
-            isRegister.value = true;
         }
     })
-}
-
-// 表单拦截
-const submitForm = () => {
-    console.log('asd');
 }
 
 </script>

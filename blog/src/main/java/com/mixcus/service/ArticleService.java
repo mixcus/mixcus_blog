@@ -5,8 +5,6 @@ import com.mixcus.entity.PageResult;
 import com.mixcus.entity.Pagination;
 import com.mixcus.entity.Result;
 
-
-
 public interface ArticleService {
     PageResult getArticleList();
 

@@ -13,15 +13,15 @@
     </select>
 
     <!--分页查询-->
-    <select id="queryArticle" parameterType="com.mixcus.entity.Pagination" resultType="article">
+    <select id="queryArticle" parameterType="Map" resultType="article">
         select * from article
         <where>
-            <if test="queryString!=null">
+            <if test="map.queryString!=null">
                 #标签查询
-                tag like concat('%',#{pagination.queryString},'%')
+                tag like concat('%',#{map.queryString},'%')
             </if>
         </where>
-        limit #{pagination.currentPage},#{pagination.totals}
+        limit #{map.currentPage},#{map.pageSize}
 
     </select>
 

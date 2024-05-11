@@ -8,7 +8,10 @@ import com.mixcus.entity.Pagination;
 import com.mixcus.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -27,7 +30,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     //编辑文章
-
     @Override
     public Result editArticle(Article article) {
 
@@ -62,8 +64,23 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public PageResult queryArticle(Pagination pagination) {
 
-        List<Article> res = articleDao.queryArticle(pagination);
+        Map<String,Object> map = new HashMap<>();
+
+        int pageSize = pagination.getPageSize();
+
+        int currentPage = (pagination.getCurrentPage()-1)*pageSize;
+        //查询条件
+        map.put("queryString",pagination.getQueryString());
+        System.out.println(map.get("queryString"));
+        //页面起始行
+        map.put("currentPage",currentPage);
+        //页面大小
+        map.put("pageSize",pageSize);
+
+        List<Article> res = articleDao.queryArticle(map);
+
         System.out.println(res);
+
         return new PageResult(res.size(),res);
     }
 

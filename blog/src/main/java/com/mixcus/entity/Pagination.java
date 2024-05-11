@@ -13,7 +13,7 @@ public class Pagination implements Serializable {
 
     private String queryString;//查询条件
 
-    private Integer totals;//总记录
+    private Integer pageSize;//页面大小
 
     private Integer currentPage;//当前页
 }

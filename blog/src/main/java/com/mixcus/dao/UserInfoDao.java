@@ -1,12 +1,11 @@
 package com.mixcus.dao;
 
 import com.mixcus.pojo.UserInfo;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Mapper
+@Repository
 public interface UserInfoDao {
-
     List<UserInfo> getUserInfoList();
 }

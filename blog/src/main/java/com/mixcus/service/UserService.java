@@ -1,7 +1,5 @@
 package com.mixcus.service;
 
-import java.util.Map;
-
 public interface UserService {
 
     String getPassword(String userName);
