@@ -2,7 +2,7 @@
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { useRouter } from 'vue-router';
 
-import { useUserStore } from '@/store/modules/user/user';
+import { useUserStore } from '@/store/modules/user/index';
 const userStore = useUserStore()
 const router = useRouter();
 const logout = function () {
@@ -22,7 +22,7 @@ const logout = function () {
       })
       setTimeout(2000)
       //移除token
-      userStore.setToken('');
+      userStore.clearUserInfo()
       //跳转到登入界面
       router.push(
         {
