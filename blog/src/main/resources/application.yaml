@@ -17,3 +17,9 @@ mybatis:
   type-aliases-package: com.mixcus.pojo
   #绑定mapper位置
   mapper-locations: classpath:mybatis/mapper/*.xml
+
+pagehelper:
+  helper-dialect: mysql
+  support-methods-arguments: true
+  reasonable: true
+  banner: false

@@ -21,10 +21,10 @@
                 tag like concat('%',#{map.queryString},'%')
             </if>
         </where>
-        limit #{map.currentPage},#{map.pageSize}
 
     </select>
 
+    <!--编辑文章-->
     <update id="editArticle" parameterType="article">
         update article
         <set>
@@ -59,16 +59,24 @@
         where article_id = #{article.articleId}
     </update>
 
+    <!--通过id删除文章-->
     <delete id="deleteArticleById" parameterType="int">
         delete from article
         where article_id = #{id}
     </delete>
 
-    <insert id="addArticle" parameterType="article">
-        insert into article (title, content, user_id,tag,category, likeCount, viewCount, create_time)
+    <!--添加文章-->
+    <insert id="addArticle" parameterType="com.mixcus.dto.ArticleDto">
+        insert into article (title,content,tag,category,create_time,modify_time)
         values
-        (#{article.title},#{article.content},#{article.userId},#{article.tag},#{article.category},0,0,CURRENT_TIMESTAMP)
+            (#{articleDto.title},
+             #{articleDto.content},
+             #{articleDto.tag},
+             #{articleDto.category},
+             CURRENT_TIMESTAMP,
+             CURRENT_TIMESTAMP)
     </insert>
+
 
 
 </mapper>
