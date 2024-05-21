@@ -9,10 +9,6 @@ import java.io.IOException;
 
 @Component
 public class SimpleCORSFilter implements Filter {
-    private static final String ALLOWED_ORIGINS = "allowedOrigins";
-    private static final String ALLOWED_METHODS = "allowedMethods";
-    private static final String ALLOWED_HEADERS = "allowedHeaders";
-    private static final String MAX_AGE = "maxAge";
 
     // 通过配置获取允许的来源、方法、头部和最大年龄
     // 这里仅作演示，实际应用中应从配置文件或环境变量中获取
