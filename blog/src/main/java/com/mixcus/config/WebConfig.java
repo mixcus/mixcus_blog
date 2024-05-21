@@ -21,5 +21,6 @@ public class WebConfig implements WebMvcConfigurer {
                //配置不需要拦截的路径
                .excludePathPatterns("/login","/register");
     }
+
 }
 

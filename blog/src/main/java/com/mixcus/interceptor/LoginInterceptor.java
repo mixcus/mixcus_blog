@@ -15,11 +15,9 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
 
-        //通过请求头的Authorization属性获取token
-        String token = request.getHeader("Authorization");
-
         try{
-
+            //通过请求头的Authorization属性截取token
+            String token = request.getHeader("Authorization").substring(7);
             Map<String, Object> claims = JWTUtil.parseToken(token);
 
             //没有异常则放行
