@@ -17,7 +17,7 @@ public class JWTUtil {
         return JWT.create()
                 .withClaim("claims",claims)
                 //实则token过期时间(这里设置毫秒)
-                .withExpiresAt(new Date(System.currentTimeMillis()+1000*20*60))
+                .withExpiresAt(new Date(System.currentTimeMillis()+1000*24*60*60))
                 //加密
                 .sign(Algorithm.HMAC256(KEY));
     }
