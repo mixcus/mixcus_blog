@@ -1,5 +1,7 @@
 package com.mixcus.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.mixcus.dao.ArticleDao;
 import com.mixcus.pojo.Article;
 import com.mixcus.service.ArticleService;
@@ -26,7 +28,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         List<Article> res = articleDao.getArticleList();
 
-        return new PageResult(res.size(),res);
+        return new PageResult((long)res.size(),res);
     }
 
     //编辑文章
@@ -66,22 +68,14 @@ public class ArticleServiceImpl implements ArticleService {
 
         Map<String,Object> map = new HashMap<>();
 
-        int pageSize = pagination.getPageSize();
-
-        int currentPage = (pagination.getCurrentPage()-1)*pageSize;
         //查询条件
         map.put("queryString",pagination.getQueryString());
-        System.out.println(map.get("queryString"));
+
+        PageHelper.startPage(pagination.getCurrentPage(),pagination.getPageSize());
         //页面起始行
-        map.put("currentPage",currentPage);
-        //页面大小
-        map.put("pageSize",pageSize);
+        Page<Article> page = articleDao.queryArticle(map);
 
-        List<Article> res = articleDao.queryArticle(map);
-
-        System.out.println(res);
-
-        return new PageResult(res.size(),res);
+        return new PageResult(page.getTotal(),page.getResult());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.mixcus.controller;
 
 
+import com.mixcus.dto.UserDto;
 import com.mixcus.pojo.User;
 import com.mixcus.service.UserService;
 import com.mixcus.entity.Result;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -21,10 +21,10 @@ public class UserController {
 
         int flag = userService.hasUserName(user.getUsername());
 
-        if(user.getUsername()==null){
+        if(user.getUsername() == null){
             return new Result(false,"账号不能为空");
         }
-        if(user.getPassword()==null){
+        if(user.getPassword() == null){
             return new Result(false,"密码不能为空");
         }
 
@@ -39,14 +39,13 @@ public class UserController {
 
             String token = userService.getToken(userName,id);
 
+            UserDto userDto = new UserDto(id,userName,token);
             //账号存在则判断密码是否相等
             String pwd = userService.getPassword(user.getUsername());
 
             if(pwd.equals(user.getPassword())){
-
-                return new Result(true,"登入成功",token);
+                return new Result(true,"登入成功",userDto);
             }else{
-
                 return new Result(false,"账号或密码错误");
             }
         }

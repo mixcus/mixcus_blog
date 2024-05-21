@@ -1,5 +1,7 @@
 package com.mixcus.dao;
 
+import com.github.pagehelper.Page;
+import com.mixcus.dto.ArticleDto;
 import com.mixcus.pojo.Article;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -15,8 +17,8 @@ public interface ArticleDao {
 
     void deleteArticleById(@Param("id") int id);
 
-    void addArticle(@Param("article") Article article);
+    void addArticle(@Param("articleDto")ArticleDto articleDto);
 
-    List<Article> queryArticle(@Param("map") Map<String,Object> map);
+    Page<Article> queryArticle(@Param("map") Map<String,Object> map);
 }
 

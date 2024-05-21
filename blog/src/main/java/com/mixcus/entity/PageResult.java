@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PageResult implements Serializable {
     //总记录数
-    private Integer totals;
+    private Long totals;
     //数据集合
     private List data;
 

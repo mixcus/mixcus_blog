@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/article")
-@CrossOrigin(origins = "*")
+@CrossOrigin("*")
 public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
-
     @PostMapping("/getArticleList")
-    public PageResult getArticleList(){
-        return articleService.getArticleList();
+    public Result getArticleList(){
+        return new Result(true,articleService.getArticleList());
     }
 
     @PostMapping("/editArticle")
@@ -27,16 +26,14 @@ public class ArticleController {
         return articleService.editArticle(article);
     }
 
-    @PostMapping("/deleteArticleById")
-    public Result deleteArticle(@RequestParam("articleId") int id){
+    @DeleteMapping("/{id}")
+    public Result deleteArticle(@PathVariable int id){
         System.out.println(id);
         return articleService.deleteArticleById(id);
     }
-
     @PostMapping("/queryArticle")
-    public PageResult queryArticle(@RequestBody Pagination pagination){
-        System.out.println(pagination);
-        return articleService.queryArticle(pagination);
+    public Result queryArticle(@RequestBody Pagination pagination){
+        return new Result(true,"查询成功",articleService.queryArticle(pagination));
     }
 
 }
