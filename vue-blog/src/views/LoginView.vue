@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 
 
-const dataForm1 = ref();
+const dataFormRef = ref();
 const isRegister = ref(false);
 const dataForm = ref({
     username: '',
@@ -66,24 +66,26 @@ const clearRegisterData = () => {
 }
 
 //导入用户仓库
-import { useUserStore } from '@/store/modules/user/user';
+import { useUserStore } from '@/store/modules/user/index';
 const userStore = useUserStore()
 
 //导入axios使用
 import { inject } from 'vue';
 const axios = inject("$axios")
 
+import instance from '@/utils/request';
 //导入基地址
 import { baseURL } from '@/utils/request';
 
 // 登入
-const login = () => {
-
+const login = async () => {
+    //等待校验
+    await dataFormRef.value.validate()
     const param = {
         username: dataForm.value.username,
         password: dataForm.value.password
     }
-    axios.post(baseURL + '/login', param).then((res) => {
+    instance.post(baseURL + '/login', param).then((res) => {
         let flag = res.data.flag;
         let message = res.data.message;
         if (flag) {
@@ -91,12 +93,10 @@ const login = () => {
             ElMessage.success(message)
             setTimeout(2000)
             //设置token
-            userStore.setToken()
-            window.localStorage.setItem('token',res.data.data)
-            console.log(res.data.data)
+            userStore.setValue(res.data.data)
             //路由跳转
             router.push({
-                path:'/main'
+                path: '/main'
             })
 
         } else {
@@ -113,13 +113,14 @@ const login = () => {
 }
 
 // 注册
-const register = () => {
+const register = async () => {
     //等待校验
+    await dataFormRef.value.validate()
     const param = {
         username: dataForm.value.username,
         password: dataForm.value.password
     }
-    axios.post(baseURL + '/register', param).then((res) => {
+    instance.post(baseURL + '/register', param).then((res) => {
         //注册成功
         if (res.data.flag) {
             //弹出信息
@@ -127,10 +128,11 @@ const register = () => {
             setTimeout(2000)
             //跳转登入页面
             isRegister.value = false;
-        }else{
+            clearDataForm()
+        } else {
             ElMessage.error(res.data.message);
             setTimeout(2000)
-            clearRegisterData();
+            clearRegisterData()
         }
     })
 }
@@ -141,7 +143,7 @@ const register = () => {
     <div class="container">
         <div class="form-box">
             <!-- 登入表单 -->
-            <el-form :model="dataForm" ref="dataForm1" v-if="!isRegister" :rules="rules" status-icon class="Form">
+            <el-form :model="dataForm" ref="dataFormRef" v-if="!isRegister" :rules="rules" status-icon class="Form">
 
                 <el-form-item prop="username">
                     <el-input v-model="dataForm.username" style="width: 240px" clearable type="text"
@@ -170,7 +172,7 @@ const register = () => {
             </el-form>
 
             <!-- 注册表单 -->
-            <el-form :model="dataForm" ref="dataForm1" v-else :rules="rules" class="Form">
+            <el-form :model="dataForm" ref="dataFormRef" v-else :rules="rules" class="Form">
 
                 <el-form-item prop="username">
                     <el-input v-model="dataForm.username" style="width: 240px" clearable type="text"

@@ -12,8 +12,9 @@ import persist from 'pinia-plugin-persistedstate'
 import {createPinia} from 'pinia'
 
 const app = createApp(App)
-
-app.use(createPinia().use(persist))
+const pinia = createPinia()
+pinia.use(persist)
+app.use(pinia)
 
 app.provide('$axios',axios)
 

@@ -4,8 +4,10 @@ import { ElMessage } from 'element-plus';
 import { onMounted, inject, ref } from 'vue';
 
 import { baseURL } from '@/utils/request';
+import instance from '@/utils/request';
 
-const formData = ref('')
+
+const formData = ref([])
 
 const axios = inject("$axios")
 
@@ -13,8 +15,6 @@ const axios = inject("$axios")
 onMounted(() => {
   findPage();
 })
-
-
 
 // 编辑文章处理
 const dialogFormVisableEdit = ref(false);
@@ -27,7 +27,7 @@ const handleEditData = (row) => {
 // 编辑表单
 const handleEdit = () => {
   console.log(editData.value);
-  axios.post(baseURL+'/article/editArticle', editData.value).then((res) => {
+  instance.post(baseURL + '/article/editArticle', editData.value).then((res) => {
     let flag = res.data.flag;
     let message = res.data.message;
     if (flag) {
@@ -52,23 +52,24 @@ const handleQuery = () => {
 //分页
 const pagination = ref({
   currentPage: 1,  //当前页
-  pageSize: 6,     //页面大小
+  pageSize: 5,     //页面大小
   total: 0,        //总数
 })
 
 //获取数据
 const findPage = () => {
-  // const param = {
-  //   queryString: queryString.value,
-  //   pageSize: pagination.value.pageSize,
-  //   currentPage: pagination.value.currentPage
-  // }
-
-  axios.post(baseURL+'/article/getArticleList').then((res) => {
-    formData.value = res.data.data;
-    pagination.value.total = res.data.totals;
+  const param = {
+    queryString: queryString.value,
+    pageSize: pagination.value.pageSize,
+    currentPage: pagination.value.currentPage
+  }
+  instance.post(baseURL + '/article/queryArticle', param).then((res) => {
+    formData.value = res.data.data.data;
+    pagination.value.total = res.data.data.totals;
+ 
   }).catch((e) => {
-    console.log(e);
+    console.log("错误")
+    console.log(e)
   })
 }
 
@@ -83,7 +84,7 @@ const handleDel = (row) => {
   let tmpData = { ...row };
   let articleId = tmpData.articleId;
   console.log(articleId);
-  axios.post(baseURL+'/article/deleteArticleById', articleId).then((res) => {
+  instance.delete(baseURL + `/article/${articleId}`).then((res) => {
     let flag = res.data.flag;
     let message = res.data.message;
     if (flag) {
@@ -142,8 +143,12 @@ const handleAdd = () => {
         </el-table>
         <!-- 分页 -->
         <div class="pagination-wrapper">
-          <el-pagination background @current-change="handleCurrentChange" v-model:current-page="pagination.currentPage"
-            v-model:page-size="pagination.pageSize" :total="pagination.total" layout="total, prev, pager, next, jumper">
+          <el-pagination background 
+            @current-change="handleCurrentChange"
+            v-model:current-page="pagination.currentPage"
+            v-model:page-size="pagination.pageSize"
+            :total="pagination.total"
+            layout="total, prev, pager, next, jumper">
           </el-pagination>
         </div>
       </div>

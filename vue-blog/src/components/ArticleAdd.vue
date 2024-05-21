@@ -7,8 +7,7 @@ const dataForm = ref({
   content: '',
   tag: '',
   category: '',
-  likeCount: 0,
-  viewCount: 0,
+  userId:''
 });
 
 const handleAdd = ()=>{
